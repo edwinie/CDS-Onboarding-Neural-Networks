@@ -1,8 +1,10 @@
 import os
+import unittest
+
+path = os.path.expanduser("~/CDS/Tio_spotify_songs.csv")
 def testdownload():
-  path = input("What is the path to the dataset? ")
-  assert os.path.exists(path)
-  print("You have downloaded the dataset!")
+  assertTrue(os.path.exists(path))
+  return "You have downloaded the dataset correctly!"
 
 
 testdownload()
