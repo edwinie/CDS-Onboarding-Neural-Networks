@@ -95,9 +95,52 @@ def test_addSummaryStatistic():
 
   assert True
 
+def test_one_hot_encode():
+    data1 = pd.Series(['A', 'B', 'C', 'A', 'B'])
+    labels1 = ['A', 'B', 'C']
+    result1 = one_hot_encode(data1, labels1)
+    expected1 = pd.DataFrame({
+        'A': [1, 0, 0, 1, 0],
+        'B': [0, 1, 0, 0, 1],
+        'C': [0, 0, 1, 0, 0]
+    }, index=data1.index)
+    assert_frame_equal(result1, expected1)
+
+    data2 = pd.Series(['A', 'A', 'B'])
+    labels2 = ['A', 'B', 'C', 'D']
+    result2 = one_hot_encode(data2, labels2)
+    expected2 = pd.DataFrame({
+        'A': [1, 1, 0],
+        'B': [0, 0, 1],
+        'C': [0, 0, 0],
+        'D': [0, 0, 0]
+    }, index=data2.index)
+    assert_frame_equal(result2, expected2)
+
+    data3 = pd.Series(['X', 'Y', 'Z'])
+    labels3 = ['A', 'B', 'C']
+    result3 = one_hot_encode(data3, labels3)
+    expected3 = pd.DataFrame({
+        'A': [0, 0, 0],
+        'B': [0, 0, 0],
+        'C': [0, 0, 0]
+    }, index=data3.index)
+    assert_frame_equal(result3, expected3)
+
+    data4 = pd.Series([], dtype=object)
+    labels4 = ['A', 'B', 'C']
+    result4 = one_hot_encode(data4, labels4)
+    assert list(result4.columns) == labels4
+    assert len(result4) == 0
+
+    assert True
+
 if __name__ == '__main__':
     test_removenanrows()
     print("removenanrows test cases have passed")
 
     test_addSummaryStatistic()
     print("addSummaryStatistic test cases have passed")
+
+    test_one_hot_encode()
+    print("onehotencode test cases have passed")
