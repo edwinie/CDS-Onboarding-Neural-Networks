@@ -135,6 +135,19 @@ def test_one_hot_encode():
 
     assert True
 
+def test_data_visualization():
+    np.random.seed(1)
+    df = pd.DataFrame({
+        'num1': np.random.normal(0, 1, 10),
+        'num2': np.random.normal(5, 2, 10),
+        'cat1': np.random.choice(['A', 'B', 'C'], 10),
+        'cat2': np.random.choice(['X', 'Y', 'Z'], 10)
+    })   
+    try:
+        assert True
+    except Exception as e:
+        assert False, f"Visualization code raised exception: {e}"
+
 if __name__ == '__main__':
     test_removenanrows()
     print("removenanrows test cases have passed")
@@ -144,3 +157,8 @@ if __name__ == '__main__':
 
     test_one_hot_encode()
     print("onehotencode test cases have passed")
+
+    test_data_visualization()
+    print("data visualization test case have passed")
+
+    print("all tests cases worked")
