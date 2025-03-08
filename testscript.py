@@ -25,46 +25,79 @@ def one_hot_encode(data, labels):
         one_hot[label] = (data == label).astype(int)
     return one_hot
 
-class TestData(unittest.TestCase):
+def test_removenanrows():
+  df1 = pd.DataFrame({
+    'A': [1,2,3], 
+    'B': [4,5,6]})
+  cleaneddf1 = removenanrows(df1)
+  assert_frame_equal(cleaneddf1, df1)
+
+  df2 = pd.DataFrame({
+    'A': [1, np.nan, 3], 
+    'B': [4,5,np.nan]})
+  cleaneddf2 = removenanrows(df2)
+  expected2 = pd.DataFrame({
+    'A': [1], 
+    'B': [4]}, index=[0])
+  assert_frame_equal(cleaneddf2, expected2)
+
+  df3 = pd.DataFrame({
+    'A': [np.nan, np.nan, np.nan], 
+    'B': [np.nan, np.nan, np.nan]})
+  cleaneddf3 = removenanrows(df3)
+  expected3 = pd.DataFrame({
+    'A': [], 
+    'B': []})
+  assert len(cleaneddf3) == 0
+  assert list(cleaneddf3.columns) == list(expected3.columns)
+
+  df4 = pd.DataFrame({
+    'A': [1, 2, np.nan],
+    'B': ['foo', np.nan, 'bar'],
+    'C': [np.nan, 3.14, 2.71]})
+  cleaneddf4 = removenanrows(df4)
+  expected4 = pd.DataFrame({
+    'A': [2],
+    'B': [pd.NA],
+    'C': [3.14]}, index=[1])
+  assert_frame_equal(cleaneddf4, expected4)
+
+  assert True
     
-    def test_removenanrows():
-      df1 = pd.DataFrame({
-        'A': [1,2,3], 
-        'B': [4,5,6]})
-    cleaneddf1 = removenanrows(df1)
-    assert_frame_equal(cleaneddf1, df1)
+def test_addSummaryStatistic():
+  df1 = pd.DataFrame({
+    'A': [1,2,3], 
+    'B': [4,5,6]})
+  df1_copy = df1.copy()
+  addSummaryStatistic(df1)
+  assert_frame_equal(df1, df1_copy)
 
-    df2 = pd.DataFrame({
-        'A': [1, np.nan, 3], 
-        'B': [4,5,np.nan]})
-    cleaneddf2 = removenanrows(df2)
-    expected2 = pd.DataFrame({
-        'A': [1], 
-        'B': [4]}, index=[0])
-    assert_frame_equal(cleaneddf2, expected2)
+  df2 = pd.DataFrame({
+    'A': [1, np.nan, 3], 
+    'B': [4,5,np.nan]})
+  addSummaryStatistic(df2)
+  expected2 = pd.DataFrame({
+    'A': [1, 2.0, 3], 
+    'B': [4, 5, 4.5]})
+  assert_frame_equal(df2, expected2)
 
-    df3 = pd.DataFrame({
-        'A': [np.nan, np.nan, np.nan], 
-        'B': [np.nan, np.nan, np.nan]})
-    cleaneddf3 = removenanrows(df3)
-    expected3 = pd.DataFrame({
-        'A': [], 
-        'B': []})
-    assert len(cleaneddf3) == 0
-    assert list(cleaneddf3.columns) == list(expected3.columns)
+  df3 = pd.DataFrame({
+    'A': [1, 2, 3], 
+    'B': [np.nan, np.nan, np.nan]})
+  addSummaryStatistic(df3)
+  assert not df3['B'].isna().any()
 
-    df4 = pd.DataFrame({
-        'A': [1, 2, np.nan],
-        'B': ['foo', np.nan, 'bar'],
-        'C': [np.nan, 3.14, 2.71]})
-    cleaneddf4 = removenanrows(df4)
-    expected4 = pd.DataFrame({
-        'A': [2],
-        'B': [pd.NA],
-        'C': [3.14]}, index=[1])
-    assert_frame_equal(cleaneddf4, expected4)
+  df4 = pd.DataFrame({
+    'A': [np.nan, np.nan, np.nan],
+    'B': [np.nan, np.nan, np.nan]})
+  addSummaryStatistic(df4)
+  assert not df4.isna().any().any()
 
-    assert True
+  assert True
 
 if __name__ == '__main__':
-    unittest.main()
+    test_removenanrows()
+    print("removenanrows test cases have passed")
+
+    test_addSummaryStatistic()
+    print("addSummaryStatistic test cases have passed")
