@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal, assert_series_equal
 
-path = os.path.expanduser("~/CDS/Top_spotify_songs.csv")
+path = os.path.expanduser("./CDS-Onboarding-Project/Top_spotify_songs.csv")
+print(path)
 def testdownload():
   assert(os.path.exists(path))
   return True
