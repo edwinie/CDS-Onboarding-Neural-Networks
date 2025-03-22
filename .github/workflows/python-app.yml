@@ -36,11 +36,11 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Create test script
       run: |
-        echo 'import testscript' > run_tests.py
-        echo 'testscript.test_removenanrows()' >> run_tests.py
-        echo 'testscript.test_addSummaryStatistic()' >> run_tests.py
-        echo 'testscript.test_one_hot_encode()' >> run_tests.py
-        echo 'testscript.test_data_visualization()' >> run_tests.py
+        echo 'import ms2_testscript' > run_tests.py
+        echo 'ms2_testscript.test_removenanrows()' >> run_tests.py
+        echo 'ms2_testscript.test_addSummaryStatistic()' >> run_tests.py
+        echo 'ms2_testscript.test_one_hot_encode()' >> run_tests.py
+        echo 'ms2_testscript.test_data_visualization()' >> run_tests.py
         echo 'print("All non-dataset tests passed")' >> run_tests.py
     - name: Run tests
       run: python run_tests.py
