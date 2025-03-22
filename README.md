@@ -15,3 +15,8 @@ Use Git to clone the repo
 Download the data file
 Use the test script to make sure your file was downloaded correctly
 
+# How to manage virtual environment\
+Create virtual environment and install dependencies:
+py -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
