@@ -3,7 +3,6 @@ import unittest
 import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal
-from ms3 import split_data
 
 path = os.path.join(".", "Top_spotify_songs.csv")
 print(path)
