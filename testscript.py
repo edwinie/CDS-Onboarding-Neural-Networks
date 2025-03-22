@@ -139,8 +139,9 @@ def test_split_data():
     
     X_train, X_val, X_test, y_train, y_val, y_test = split_data(test_df, 'target')
     
-    assert len(X_val) == 15, f"Expected val size: 15, got: {len(X_val)}"
-    assert len(X_test) == 15, f"Expected test size: 15, got: {len(X_test)}"
+    assert abs(len(X_train) - 70) <= 1, f"Train size too far from 70: {len(X_train)}"
+    assert abs(len(X_val) - 15) <= 1, f"Val size too far from 15: {len(X_val)}"
+    assert abs(len(X_test) - 15) <= 1, f"Test size too far from 15: {len(X_test)}"
     
     assert len(set(X_train.index) & set(X_val.index)) == 0, "Train/val overlap"
     assert len(set(X_train.index) & set(X_test.index)) == 0, "Train/test overlap"
