@@ -1,0 +1,5 @@
+import streamlit as streamlit
+
+st.title("Continuous Integration")
+
+st.write("We are using our CI pipeline to make sure that our code is having our unittests run automatically every time to make sure our code properly works.")
