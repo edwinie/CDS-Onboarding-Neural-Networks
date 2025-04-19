@@ -26,6 +26,7 @@ when switching from All Features to Reduced Features. This suggests that the rem
 features contained useful information that helped improve predictions.""")
 
 st.image("streamlitImages/knnq2.png")
+st.image("streamlitImages/knnfeatureremoval.png")
 
 st.subheader("""What happens when you normalize your input data? If it is already normalized, what happens when you scale your input data to different proportions?""")
 
