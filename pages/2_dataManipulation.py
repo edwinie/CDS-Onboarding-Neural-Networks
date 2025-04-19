@@ -9,8 +9,7 @@ st.write("We decided to clean all the missing values out of the dataset and repl
 st.subheader("Cleaning Strategy")
 st.markdown("""
 - Removed columns with more than 50% missing values.
-- Filled numerical NaNs with the column median.
-- Filled categorical NaNs with the mode (most frequent value).
+- Replaced NaN values with mean summary statistic
 """)
 
 
